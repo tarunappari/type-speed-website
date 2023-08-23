@@ -11,16 +11,6 @@ const darkTheme = {
     timer:'#E2B714',
 }
 
-const Fledging = {
-    label:'Fledging',
-    background:'#3B363F',
-    textColor:'#B3596A',
-    extra:'#f59191',
-    correct:'green',
-    incorrect:'red',
-    timer:'red',
-}
-
 const arch = {
     label:'arch',
     background:'#0C0D11',
@@ -154,11 +144,11 @@ const tronOrange = {
 export const themeOptions = [
     {label:'Dark',value:darkTheme},
     {label:'arch',value:arch},
+    {label:'botanical',value:botanical},
+    {label:'breeze',value:breeze},
     {label:'aurora',value:aurora},
     {label:'superUser',value:superUser},
     {label:'blueBerry',value:blueBerry},
-    {label:'botanical',value:botanical},
-    {label:'breeze',value:breeze},
     {label:'pulp',value:pulp},
     {label:'pulse',value:pulse},
     {label:'carbon',value:carbon},

@@ -98,7 +98,7 @@ const SignUp = ({ handleClose }) => {
             onChange={(e) => setEmail(e.target.value)}
             className="textField"
             InputLabelProps={{
-              style: { color: theme.textColor },
+              style: { color: theme.correct },
             }}
             inputProps={{
               style: { color: theme.correct },
@@ -123,7 +123,7 @@ const SignUp = ({ handleClose }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="textField"
           InputLabelProps={{
-            style: { color: theme.textColor },
+            style: { color: theme.correct },
           }}
           inputProps={{
             style: { color: theme.correct },
@@ -138,7 +138,7 @@ const SignUp = ({ handleClose }) => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="textField"
           InputLabelProps={{
-            style: { color: theme.textColor },
+            style: { color: theme.correct },
           }}
           inputProps={{
             style: { color: theme.correct },

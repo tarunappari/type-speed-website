@@ -93,7 +93,7 @@ const Login = ({ handleClose }) => {
             width: "100%",
           }}
           InputLabelProps={{
-            style: { color: theme.textColor },
+            style: { color: theme.correct},
           }}
           inputProps={{
             style: { color: theme.correct },
@@ -125,7 +125,7 @@ const Login = ({ handleClose }) => {
           }}
           onChange={(e) => setPassword(e.target.value)}
           InputLabelProps={{
-            style: { color: theme.textColor },
+            style: { color: theme.correct },
           }}
           inputProps={{
             style: { color: theme.correct },

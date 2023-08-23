@@ -4,7 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import { useThemeContext } from "../Context/ThemeContext";
-import GoogleButton from "react-google-button";
+import GoogleIcon from "@mui/icons-material/Google";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
 import errorMapping from "../Utils/errorMapping";
@@ -87,11 +87,15 @@ const Account = () => {
   return (
     <AccountContainer>
       <div className="profile">
-        <AccountCircleIcon onClick={handleModal} className='icon'/>
-        {user && <div className="userDiv">
-                     <span className="user" onClick={handleModal}>{user.email}</span>
-                     <LogoutIcon onClick={handleLogout} className='icon'/>  
-                  </div>}
+        <AccountCircleIcon onClick={handleModal} className="icon" />
+        {user && (
+          <div className="userDiv">
+            <span className="user" onClick={handleModal}>
+              {user.email}
+            </span>
+            <LogoutIcon onClick={handleLogout} className="icon" />
+          </div>
+        )}
       </div>
 
       <Modal
@@ -103,15 +107,18 @@ const Account = () => {
           justifyContent: "center",
         }}
       >
-        <div style={{
-          border:`1px solid ${({theme})=>theme.timer},`,
-          minWidth:'30vw',
-          background:`linear-gradient(35deg,${({theme})=>theme.timer},${({theme})=>theme.timer})`,
-          backdropFilter:'blur(10px)',
-          borderRadius:'20px',
-          boxShadow:`0 8px 32px 0 ${({theme})=>theme.background}`,
-          padding:'0.8rem 2rem'
-        }}>
+        <div
+          style={{
+            border: `1px solid ${({ theme }) => theme.timer},`,
+            minWidth: "30vw",
+            background: `linear-gradient(35deg,${({ theme }) =>
+              theme.timer},${({ theme }) => theme.timer})`,
+            backdropFilter: "blur(10px)",
+            borderRadius: "20px",
+            boxShadow: `0 8px 32px 0 ${({ theme }) => theme.background}`,
+            padding: "0.8rem 2rem",
+          }}
+        >
           <AppBar position="static" style={{ backgroundColor: "transparent" }}>
             <Tabs value={value} onChange={handleValue} variant="fullWidth">
               <Tab label="Login" style={{ color: theme.correct }}></Tab>
@@ -134,17 +141,26 @@ const Account = () => {
               alignItems: "center",
             }}
           >
-            <span style={{ marginLeft: "9.5rem", alignSelf: "center" }}>
+            <span style={{ marginLeft: "9.5rem", alignSelf: "center", color: theme.correct}}>
               or
             </span>
-            <GoogleButton
+            <div
               onClick={handleGoogle}
               style={{
                 width: "85%",
                 marginTop: "1rem",
                 marginLeft: "1.5rem",
+                color: theme.timer,
+                display:'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                gap:'3px',
+                minHeight:'3rem',
               }}
-            />
+            >
+              <GoogleIcon />
+              <span>Sign up with google</span>
+            </div>
           </Box>
         </div>
       </Modal>
@@ -155,30 +171,30 @@ const Account = () => {
 export default Account;
 
 let AccountContainer = styled.div`
-    .profile{
-        display: flex;
-        padding-top: 0.5rem;
-        .icon{
-           font-size: 1.9rem;
-            transition: 0.3s ease;
-        }
-        .icon:hover{
-            color : ${({theme})=>theme.timer};
-            cursor: pointer;
-            font-size:2rem;
-        }
-        .userDiv{
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .user{
-          transition: 0.3s ease;
-          margin-right: 1rem;
-        }
-        .user:hover{
-            color : ${({theme})=>theme.timer};
-            cursor: pointer;
-        }
+  .profile {
+    display: flex;
+    padding-top: 0.5rem;
+    .icon {
+      font-size: 1.9rem;
+      transition: 0.3s ease;
     }
-`
+    .icon:hover {
+      color: ${({ theme }) => theme.timer};
+      cursor: pointer;
+      font-size: 2rem;
+    }
+    .userDiv {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .user {
+      transition: 0.3s ease;
+      margin-right: 1rem;
+    }
+    .user:hover {
+      color: ${({ theme }) => theme.timer};
+      cursor: pointer;
+    }
+  }
+`;
