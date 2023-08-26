@@ -28,6 +28,20 @@ const SignUp = ({ handleClose }) => {
       return;
     }
 
+     if (password.length < 8) {
+      toast.success("password should contain minimum of 8 characters", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "Dark",
+      });
+      return;
+    }
+
     if (password !== confirmPassword) {
       toast.warn("Passwords didnt match", {
         position: "top-right",
