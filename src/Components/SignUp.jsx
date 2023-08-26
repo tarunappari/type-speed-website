@@ -45,7 +45,7 @@ const SignUp = ({ handleClose }) => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {
-        toast.warn("Account created", {
+        toast.success("Account created", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
