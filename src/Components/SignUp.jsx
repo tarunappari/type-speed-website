@@ -29,7 +29,7 @@ const SignUp = ({ handleClose }) => {
     }
 
      if (password.length < 8) {
-      toast.success("password should contain minimum of 8 characters", {
+      toast.warn("password should contain minimum of 8 characters", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
