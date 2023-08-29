@@ -12,7 +12,7 @@ const Login = ({ handleClose }) => { //we are getting handleclose func from acco
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event) => { 
     event.preventDefault();
   };
 
