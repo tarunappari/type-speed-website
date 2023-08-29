@@ -33,8 +33,8 @@ const TypeBox = () => {
   let [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
-    focusInput();
-    wordsRef[0].current.childNodes[0].className = "current";
+    focusInput(); //we are focusing the input at the start 
+    wordsRef[0].current.childNodes[0].className = "current"; //and giving cursor to first word
   }, []);
 
   //testReset function which will reset everything whenever the testTime is clicked in b/w the test
@@ -50,7 +50,7 @@ const TypeBox = () => {
     resetWordsRef();
   }
 
-  function resetWordsRef() {
+  function resetWordsRef() { // here we are removing clssname from words reseting to normal 
     wordsRef.map((i) => {
       Array.from(i.current.childNodes).map((j) => {
         j.className = "";
@@ -60,6 +60,7 @@ const TypeBox = () => {
     wordsRef[0].current.childNodes[0].className = "current";
   }
 
+  //we are reseting the entire test whenver the user changes the testime in the middle of the test
   useEffect(() => {
     resetTest();
   }, [testTime]);
@@ -81,7 +82,7 @@ const TypeBox = () => {
     setIntervalId(intervalId);
 
     function timer() {
-      //this is for graphData mean sec to sec analysis how many chars we have type in a sec
+      //this is for graphData means sec to sec analysis how many chars we have type in a sec
       setCountDown((latestcountDown) => {
         setCorrectChars((correctChars) => {
           setGraphData((graphData) => {
@@ -96,42 +97,47 @@ const TypeBox = () => {
           return correctChars;
         });
 
-        if (latestcountDown === 1) {
+        if (latestcountDown === 1) { //if testtime is one we are ending the test and clearing the interval
           inputRef.current.blur();
           setTestEnded(true);
           clearInterval(intervalId);
           return 0;
         }
-        return latestcountDown - 1;
+        return latestcountDown - 1; //else returing countdown -1
       });
     }
   }
 
+  //this is the func to focus the input
   function focusInput() {
     inputRef.current.focus();
   }
 
+
   function handleInput(e) {
+
+    //whenevr user start clicking the word we are starting the timer and starting the test
     if (!testStarted) {
       startTimer();
       setTestStarted(true);
     }
 
+    //this has the ref of allChars that were present in current word
     let allCurrChars = wordsRef[currWordIndex].current.childNodes;
 
     //logic for space button when we click the space then the control should have move to next word
     if (e.keyCode === 32) {
       let correctCharsInWords =
         wordsRef[currWordIndex].current.querySelectorAll(".correct");
-
-      if (correctCharsInWords.length === allCurrChars.length) {
+        
+      if (correctCharsInWords.length === allCurrChars.length) { //if user type all chrs crt in currword then we are incrementing crtwords
         setCorrectWords(correctWords + 1);
       }
 
-      if (allCurrChars.length <= currCharIndex) {
+      if (allCurrChars.length <= currCharIndex) { //if word changes then removing previous char cursor
         allCurrChars[currCharIndex - 1].classList.remove("current-right");
       } else {
-        //moving to another word in b/w the word
+        //moving cursor to another word in b/w the word
         setMissedChars(missedChars + (allCurrChars.length - currCharIndex));
         allCurrChars[currCharIndex].classList.remove("current");
       }
@@ -152,6 +158,7 @@ const TypeBox = () => {
           if (allCurrChars[currCharIndex - 1].className.includes("extra")) {
             allCurrChars[currCharIndex - 1].remove();
             allCurrChars[currCharIndex - 2].className += " current-right";
+            setExtraChars(extraChars - 1)
           } else {
             allCurrChars[currCharIndex - 1].className = "current";
           }
@@ -168,6 +175,7 @@ const TypeBox = () => {
       return;
     }
 
+    //if user clicks extra characters then we adding to the word
     if (allCurrChars.length === currCharIndex) {
       let newSpan = document.createElement("span");
       newSpan.innerText = e.key;
@@ -198,6 +206,7 @@ const TypeBox = () => {
     setCurrCharIndex(currCharIndex + 1);
   }
 
+  //this will return array of wordslength with reference
   let wordsRef = useMemo(() => {
     return Array(words.length)
       .fill(0)
@@ -209,7 +218,6 @@ const TypeBox = () => {
       {testEnded ? null : <UpperMenu countDown={countDown} />}
       <WordsContainer onClick={focusInput}>
         {testEnded ? (
-          <div className="statsDiv">
             <Stats
               wpm={calculateWPM()}
               accuracy={calculateAccuracy()}
@@ -220,7 +228,6 @@ const TypeBox = () => {
               graphData={graphData}
               testTime={testTime}
             />
-          </div>
         ) : (
             words &&
               words.map((word, index) => (
@@ -243,6 +250,7 @@ const TypeBox = () => {
 export default TypeBox;
 
 let Main = styled.div`
+ 
   && > input {
     opacity: 0;
   }
@@ -267,11 +275,6 @@ let WordsContainer = styled.div`
   padding: 0.5rem;
   margin: 0 6rem;
   align-items: center;
-  .statsDiv {
-    margin-left: 9rem;
-    justify-self: center;
-    align-self: center;
-  }
   && > span {
     padding: 0 0.2rem;
     font-size: 1.3rem;

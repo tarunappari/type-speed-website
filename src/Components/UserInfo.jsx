@@ -6,6 +6,7 @@ import { AccountCircle } from "@mui/icons-material"
 
 const UserInfo = ({totalTestsTaken}) =>{
 
+    //this will current user
     let [user] = useAuthState(auth)
 
     return(

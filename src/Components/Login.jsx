@@ -7,7 +7,7 @@ import { styled } from "styled-components";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 
-const Login = ({ handleClose }) => {
+const Login = ({ handleClose }) => { //we are getting handleclose func from account.js we are closing modal whnever user is logged
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -36,6 +36,7 @@ const Login = ({ handleClose }) => {
       return;
     }
 
+    //we are loggin in user through signwithEmailandPassword func if promise fulfills then we are caling handleclose func to close modal
     auth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {

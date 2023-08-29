@@ -1,7 +1,7 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useThemeContext } from "../Context/ThemeContext";
 
-
+//this component render user data in table in userpae
 
 const TableUserData = ({userData}) =>{
 

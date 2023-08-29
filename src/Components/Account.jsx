@@ -15,7 +15,10 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 
 const Account = () => {
+
+  //this gives user details from firebase if user is present i mean logged in
   let [user] = useAuthState(auth);
+
 
   let [value, setValue] = useState(0);
   let [open, setOpen] = useState(false);
@@ -25,6 +28,7 @@ const Account = () => {
   let navigate = useNavigate();
 
   function handleModal() {
+    //if user is present itll navigate to user page else this will open the modal
     if (user) {
       navigate("/user");
     } else {
@@ -37,6 +41,8 @@ const Account = () => {
   }
 
   function handleValue(e, v) {
+    //onclicking this will give us a value 0 for logi and 1 for signup
+    //based on that we will be settingup the value and navigating t signup and login
     setValue(v);
   }
 
@@ -44,7 +50,7 @@ const Account = () => {
     auth
       .signOut()
       .then((res) => {
-        toast.success("Logged out ");
+        toast.success("Logged out");
       })
       .catch((err) => {
         toast.error("not able to logout");
@@ -54,6 +60,7 @@ const Account = () => {
   let googleProvider = new GoogleAuthProvider();
 
   function handleGoogle() {
+    //this will give popup to signin with google
     signInWithPopup(auth, googleProvider)
       .then((rees) => {
         toast.success("Logged in succesfully", {

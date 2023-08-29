@@ -8,12 +8,14 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Link } from "react-router-dom";
+import  themeImg  from '../Images/theme.png'
 
 const Footer = () =>{
 
     let {theme,setTheme} = useThemeContext();
 
     function handleChange(e){
+        //we will be setting up the theme on change and storing that in localstorage
         setTheme(e.value);
         localStorage.setItem('theme',JSON.stringify(e.value));
     }
@@ -27,7 +29,8 @@ const Footer = () =>{
                 <Link to='https://www.facebook.com/tarun.appari' className="icon" target="_blank"><FacebookIcon /></Link>
                 <Link to='https://www.instagram.com/_imnomonk____/' className="icon" target="_blank"><InstagramIcon /></Link>
             </div>
-            <div>
+            <div className="stylesDiv">
+              <div><img src={themeImg} alt="themepic" /></div>
             <Select 
                 styles={{
                     menu : (styles,{isFocused}) =>({
@@ -106,6 +109,18 @@ let FooterContainer = styled.div`
             color : ${({theme})=>theme.timer};
             cursor: pointer;
             font-size:1.7rem;
+        }
+    }
+    .stylesDiv{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+            height: 1.5rem;
+            width: 1.5rem;
+            position: relative;
+            top: 4px;
+            opacity: 0.5;
         }
     }
 `

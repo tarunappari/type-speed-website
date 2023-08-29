@@ -6,7 +6,7 @@ import { styled } from "styled-components";
 import EmailIcon from "@mui/icons-material/Email";
 import { toast } from "react-toastify";
 
-const SignUp = ({ handleClose }) => {
+const SignUp = ({ handleClose }) => { //we are getting handleclose func from account.js we are closing modal whnever user created acc
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [confirmPassword, setConfirmPassword] = useState();
@@ -16,6 +16,20 @@ const SignUp = ({ handleClose }) => {
   function handleSubmit() {
     if (!email || !password || !confirmPassword) {
       toast.warn("All fields are mandatory", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "Dark",
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.success("password should contain minimum of 8 characters", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -42,6 +56,7 @@ const SignUp = ({ handleClose }) => {
       return;
     }
 
+    //we are creating user in firestore with this func
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((res) => {

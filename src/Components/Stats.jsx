@@ -5,7 +5,7 @@ import { auth, db } from "../FirebaseConfig";
 import { toast } from "react-toastify";
 import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 
-const Stats = ({
+const Stats = ({  //here we are getting the info from typebox that we have to show in the stats
   wpm,
   accuracy,
   correctChars,
@@ -16,18 +16,19 @@ const Stats = ({
   testTime,
 }) => {
 
-  let [restart, setRestart] = useState(false);
 
-  let timeSet = new Set();
-  let newGraph = graphData.filter((i) => {
-    if (!timeSet.has(i[0])) {
-      timeSet.add(i[0]);
+  let timeSet = new Set(); //this is a data structure which will only contain unique values
+                           //we are filtering graphdata bcaz we have reduntant data per sec we can more than one word
+                           //so many timevalues will come
+  let newGraph = graphData.filter((i) => { 
+    if (!timeSet.has(i[0])) {  //0th index have time value we are chechking that if timeset has that value or not
+      timeSet.add(i[0]);  // if not we are adding it to timeset and return iso we can have unique time seconds
       return i;
     }
   });
 
   function pushDataTODB() {
-    if (isNaN(accuracy)) {
+    if (isNaN(accuracy)) { //if user cant even type one word in the test so accurcy will be NaN so we are not adding this test to DB
       toast.error("Invalid test", {
         position: "top-right",
         autoClose: 3000,
@@ -41,10 +42,12 @@ const Stats = ({
       return;
     }
 
-    const resultsRef = db.collection("Results");
-    const { uid } = auth.currentUser;
+    const resultsRef = db.collection("Results"); //if firestore didnt have any collection with the name of results
+                                                 //then itll create in db then return its refernce
 
-    resultsRef
+    const { uid } = auth.currentUser;  //this will return userId from the currentUser
+
+    resultsRef  //we are adding result to the db here
       .add({
         wpm: wpm,
         accuracy: accuracy,
@@ -80,7 +83,7 @@ const Stats = ({
   }
 
   useEffect(() => {
-    if (auth.currentUser) {
+    if (auth.currentUser) {  //if user is loggedin then result will add to db collection else shows warning to login
       pushDataTODB();
     } else {
       toast.warn("Login to save results", { 
@@ -182,7 +185,7 @@ let StatsContainer = styled.div`
   min-width: 95%;
   align-items: center;
   gap: 2rem;
-  margin-left: -3.5rem;
+  margin-left: 4.5rem;
   .left-part {
     width: 18%;
     margin-right: 3rem;

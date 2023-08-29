@@ -3,6 +3,8 @@ import { Chart as ChartJS , CategoryScale , PointElement ,LinearScale , LineElem
 import { Line } from "react-chartjs-2";
 import { useThemeContext } from "../Context/ThemeContext";
 
+
+//we have register all these before using chartjs
 ChartJS.register(
     CategoryScale, 
     LinearScale,

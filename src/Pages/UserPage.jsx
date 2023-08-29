@@ -30,16 +30,16 @@ const UserPage = () => {
     let tempData = [];
     let tempGraph = [];
 
-    resultsRef
+    resultsRef //thi will check currUsedId and uid in the results collection in db and return matched one
       .where("userId", "==", uid)
-      .orderBy("timeStamp", "desc")
+      .orderBy("timeStamp", "desc") //we are ordeing in desc order
       .get()
-      .then((snapshot) => {
+      .then((snapshot) => { //gives a snapshot which contin entire results collection of that matachd id
         snapshot.docs.forEach((doc) => {
           tempData.push({ ...doc.data() });
           tempGraph.push([
-            doc.data().timeStamp.toDate().toLocaleString().split(",")[0],
-            doc.data().wpm,
+            doc.data().timeStamp.toDate().toLocaleString().split(",")[0], //we are only taking date
+            doc.data().wpm, 
           ]);
         });
         setUserData(tempData);
