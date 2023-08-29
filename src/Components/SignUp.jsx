@@ -28,6 +28,20 @@ const SignUp = ({ handleClose }) => { //we are getting handleclose func from acc
       return;
     }
 
+    if (password.length < 8) {
+      toast.warn("Password should atleast contain 8 characters", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "Dark",
+      });
+      return;
+    }
+
     if (password !== confirmPassword) {
       toast.warn("Passwords didnt match", {
         position: "top-right",
