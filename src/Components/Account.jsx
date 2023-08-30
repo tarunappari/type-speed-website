@@ -62,7 +62,7 @@ const Account = () => {
   function handleGoogle() {
     //this will give popup to signin with google
     signInWithPopup(auth, googleProvider)
-      .then((rees) => {
+      .then((res) => {
         toast.success("Logged in succesfully", {
           position: "top-right",
           autoClose: 3000,
@@ -163,6 +163,7 @@ const Account = () => {
                 justifyContent:'center',
                 gap:'3px',
                 minHeight:'3rem',
+                cursor:'pointer'
               }}
             >
               <GoogleIcon />
