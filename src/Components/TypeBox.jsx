@@ -4,13 +4,12 @@ import { generate } from "random-words";
 import UpperMenu from "./UpperMenu";
 import { useTimeModeContext } from "../Context/TimeModeContext";
 import Stats from "./Stats";
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useThemeContext } from "../Context/ThemeContext";
 
 const TypeBox = () => {
-  
-  let {theme} = useThemeContext()
-  
+  let { theme } = useThemeContext();
+
   let [testStarted, setTestStarted] = useState(false);
   let [testEnded, setTestEnded] = useState(false);
 
@@ -32,8 +31,15 @@ const TypeBox = () => {
 
   let [graphData, setGraphData] = useState([]);
 
+  //this will return array of wordslength with reference
+  let wordsRef = useMemo(() => {
+    return Array(words.length)
+      .fill(0)
+      .map((i) => createRef(null));
+  }, [words]);
+
   useEffect(() => {
-    focusInput(); //we are focusing the input at the start 
+    focusInput(); //we are focusing the input at the start
     wordsRef[0].current.childNodes[0].className = "current"; //and giving cursor to first word
   }, []);
 
@@ -50,7 +56,8 @@ const TypeBox = () => {
     resetWordsRef();
   }
 
-  function resetWordsRef() { // here we are removing clssname from words reseting to normal 
+  function resetWordsRef() {
+    // here we are removing clssname from words reseting to normal
     wordsRef.map((i) => {
       Array.from(i.current.childNodes).map((j) => {
         j.className = "";
@@ -97,7 +104,8 @@ const TypeBox = () => {
           return correctChars;
         });
 
-        if (latestcountDown === 1) { //if testtime is one we are ending the test and clearing the interval
+        if (latestcountDown === 1) {
+          //if testtime is one we are ending the test and clearing the interval
           inputRef.current.blur();
           setTestEnded(true);
           clearInterval(intervalId);
@@ -113,9 +121,7 @@ const TypeBox = () => {
     inputRef.current.focus();
   }
 
-
   function handleInput(e) {
-
     //whenevr user start clicking the word we are starting the timer and starting the test
     if (!testStarted) {
       startTimer();
@@ -129,12 +135,14 @@ const TypeBox = () => {
     if (e.keyCode === 32) {
       let correctCharsInWords =
         wordsRef[currWordIndex].current.querySelectorAll(".correct");
-        
-      if (correctCharsInWords.length === allCurrChars.length) { //if user type all chrs crt in currword then we are incrementing crtwords
+
+      if (correctCharsInWords.length === allCurrChars.length) {
+        //if user type all chrs crt in currword then we are incrementing crtwords
         setCorrectWords(correctWords + 1);
       }
 
-      if (allCurrChars.length <= currCharIndex) { //if word changes then removing previous char cursor
+      if (allCurrChars.length <= currCharIndex) {
+        //if word changes then removing previous char cursor
         allCurrChars[currCharIndex - 1].classList.remove("current-right");
       } else {
         //moving cursor to another word in b/w the word
@@ -158,7 +166,7 @@ const TypeBox = () => {
           if (allCurrChars[currCharIndex - 1].className.includes("extra")) {
             allCurrChars[currCharIndex - 1].remove();
             allCurrChars[currCharIndex - 2].className += " current-right";
-            setExtraChars(extraChars - 1)
+            setExtraChars(extraChars - 1);
           } else {
             allCurrChars[currCharIndex - 1].className = "current";
           }
@@ -206,41 +214,36 @@ const TypeBox = () => {
     setCurrCharIndex(currCharIndex + 1);
   }
 
-  //this will return array of wordslength with reference
-  let wordsRef = useMemo(() => {
-    return Array(words.length)
-      .fill(0)
-      .map((i) => createRef(null));
-  }, [words]);
-
   return (
     <Main>
       {testEnded ? null : <UpperMenu countDown={countDown} />}
       <WordsContainer onClick={focusInput}>
         {testEnded ? (
-            <Stats
-              wpm={calculateWPM()}
-              accuracy={calculateAccuracy()}
-              correctChars={correctChars}
-              inCorrectChars={inCorrectChars}
-              missedChars={missedChars}
-              extraChars={extraChars}
-              graphData={graphData}
-              testTime={testTime}
-            />
+          <Stats
+            wpm={calculateWPM()}
+            accuracy={calculateAccuracy()}
+            correctChars={correctChars}
+            inCorrectChars={inCorrectChars}
+            missedChars={missedChars}
+            extraChars={extraChars}
+            graphData={graphData}
+            testTime={testTime}
+          />
         ) : (
-            words &&
-              words.map((word, index) => (
-                <span key={index} ref={wordsRef[index]} className="word">
-                  {word.split("").map((char) => (
-                    <span className="char">{char}</span>
-                  ))}
-                </span>
-              ))
+          words &&
+          words.map((word, index) => (
+            <span key={index} ref={wordsRef[index]} className="word">
+              {word.split("").map((char) => (
+                <span className="char">{char}</span>
+              ))}
+            </span>
+          ))
         )}
-        {testEnded ? (null):(<div className="reset" onClick={resetTest}>
+        {testEnded ? null : (
+          <div className="reset" onClick={resetTest}>
             <RestartAltIcon />
-        </div>)}
+          </div>
+        )}
       </WordsContainer>
       <input type="text" onKeyDown={handleInput} ref={inputRef} />
     </Main>
@@ -250,7 +253,6 @@ const TypeBox = () => {
 export default TypeBox;
 
 let Main = styled.div`
- 
   && > input {
     opacity: 0;
   }
@@ -280,11 +282,11 @@ let WordsContainer = styled.div`
     font-size: 1.3rem;
     align-self: flex-start;
   }
-  .reset{
+  .reset {
     min-width: 100%;
     margin-top: 0.7rem;
     text-align: end;
-    color: ${({theme})=>theme.timer};
+    color: ${({ theme }) => theme.timer};
     padding-right: 1.9rem;
     cursor: pointer;
   }
